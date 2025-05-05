@@ -1,0 +1,7 @@
+D:/school/cuda/project/build/CMakeFiles/hello.dir
+D:/school/cuda/project/build/CMakeFiles/ALL_BUILD.dir
+D:/school/cuda/project/build/CMakeFiles/ZERO_CHECK.dir
+D:/school/cuda/project/build/SDL/CMakeFiles/SDL3-shared.dir
+D:/school/cuda/project/build/SDL/CMakeFiles/SDL3_test.dir
+D:/school/cuda/project/build/SDL/CMakeFiles/SDL_uclibc.dir
+D:/school/cuda/project/build/SDL/CMakeFiles/ALL_BUILD.dir
