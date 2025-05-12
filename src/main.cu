@@ -8,11 +8,11 @@
 
 using namespace std;
 
-#define NUM_BOIDS 10000
-#define MAX_SPEED 50.0f
+#define NUM_BOIDS 7000
+#define MAX_SPEED 300.0f
 #define NEIGHBOUR_RANGE 35.0f
 #define SEPARATION_THRESHOLD 20.0f
-#define TARGET_ATTRACTION_STRENGTH 0.05f
+#define TARGET_ATTRACTION_STRENGTH 0.6f
 #define EXPLODE_STRENGTH 1000000.0f
 #define BLOCK_SIZE 256
 #define MAX_NEIGHBOURS 128
@@ -377,7 +377,9 @@ int main() {
     std::cout << "Min FPS: " << minFps << std::endl;
     std::cout << "Max FPS: " << maxFps << std::endl;
 
-    writeToFile("output_GPU.json",totalFrames, runtime, fpsValues);
+    char buf[100];
+    sprintf(buf, "output_GPU_%d.json", NUM_BOIDS);
+    writeToFile(buf, totalFrames, runtime, fpsValues);
 
     if (target) delete target;
     cudaFree(d_states);
