@@ -311,7 +311,9 @@ int main() {
     std::cout << "Min FPS: " << minFps << std::endl;
     std::cout << "Max FPS: " << maxFps << std::endl;
 
-    writeToFile("output_CPU.json",totalFrames, runtime, fpsValues);
+    char buf[100];
+    sprintf(buf, "output_CPU_%d.json", NUM_BOIDS);
+    writeToFile(buf, totalFrames, runtime, fpsValues);
 
     if (target) delete target;
     SDL_DestroyRenderer(renderer);
