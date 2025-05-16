@@ -233,7 +233,7 @@ void SimulateBoids(std::vector<Boid>& boids, std::vector<Boid>& new_boids,
     int blockSize = BLOCK_SIZE;
     int gridSize = (NUM_BOIDS + blockSize - 1) / blockSize;
     
-    SimulateBoidKernel<<<gridSize, blockSize>>>(d_boids, d_new_boids, d_target, screenWidth, screenHeight, dt, explode, d_states);
+    SimulateBoidKernel<<<gridSize, blockSize>>>(d_boids, d_new_boids, d_target, screenWidth, screenHeight, dt, d_explode, d_states);
     cudaDeviceSynchronize();
     
     cudaMemcpy(new_boids.data(), d_new_boids, NUM_BOIDS * sizeof(Boid), cudaMemcpyDeviceToHost);
