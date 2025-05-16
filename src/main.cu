@@ -217,13 +217,10 @@ void SimulateBoids(std::vector<Boid>& boids, std::vector<Boid>& new_boids,
 {
     Boid* d_boids, *d_new_boids;
     Vector2* d_target = nullptr;
-    bool* d_explode;
 
     cudaMalloc(&d_boids, NUM_BOIDS * sizeof(Boid));
     cudaMalloc(&d_new_boids, NUM_BOIDS * sizeof(Boid));
-    cudaMalloc(&d_explode, sizeof(bool));
     cudaMemcpy(d_boids, boids.data(), NUM_BOIDS * sizeof(Boid), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_explode, &explode, sizeof(bool), cudaMemcpyHostToDevice);
 
     if(target != nullptr) {
         cudaMalloc(&d_target, sizeof(Vector2));
@@ -233,14 +230,13 @@ void SimulateBoids(std::vector<Boid>& boids, std::vector<Boid>& new_boids,
     int blockSize = BLOCK_SIZE;
     int gridSize = (NUM_BOIDS + blockSize - 1) / blockSize;
     
-    SimulateBoidKernel<<<gridSize, blockSize>>>(d_boids, d_new_boids, d_target, screenWidth, screenHeight, dt, d_explode, d_states);
+    SimulateBoidKernel<<<gridSize, blockSize>>>(d_boids, d_new_boids, d_target, screenWidth, screenHeight, dt, explode, d_states);
     cudaDeviceSynchronize();
     
     cudaMemcpy(new_boids.data(), d_new_boids, NUM_BOIDS * sizeof(Boid), cudaMemcpyDeviceToHost);
 
     cudaFree(d_boids);
     cudaFree(d_new_boids);
-    cudaFree(d_explode);
     if(d_target != nullptr) {
         cudaFree(d_target);
     }
